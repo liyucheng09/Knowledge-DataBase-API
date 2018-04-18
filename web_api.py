@@ -1,13 +1,18 @@
 import json
-from flask import Flask
-from flask.ext.script import Manager
+from flask import Flask,request
+from flask_script import Manager
 from db import *
 
 app=Flask(__name__)
 manager=Manager(app)
 
-@app.route('/ment2ent?q=<ment>')
+@app.route('/')
+def index():
+	return '<h1>hello world!</h1>'
+
+@app.route('/ment2ent')
 def ment2ent_api():
+	ment=request.args.get('q')
 	ment_cursor=ment2ent(ment)
 	r=ment_cursor.search()
 	if r:
@@ -15,12 +20,13 @@ def ment2ent_api():
 	else:
 		return json.dumps({'status':'Error','return':[]},ensure_ascii=False)
 
-@app.route('/triples?q=<ent>')
-def triples_api()
-	triples_cursor=triples(ent)
+@app.route('/triples')
+def triples_api(ent):
+	ent=request.args.get('q')
+	triples_cursor=tripls(ent)
 	r=triples_cursor.search()
 	if r:
-		return return json.dumps(r,ensure_ascii=False)
+		return json.dumps(r,ensure_ascii=False)
 	else:
 		return json.dumps({'status':'Error','return':[]},ensure_ascii=False)
 

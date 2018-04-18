@@ -11,11 +11,11 @@ result_template={
 class ment2ent():
 	def __init__(self,ment):
 		self.ment=ment
-	def search():
+	def search(self):
 		if(self.ment==''):
 			return None
 		else:
-			cursor=dbp.find({'m':self.ment})
+			cursor=dbp.ment2ent.find({'m':self.ment})
 			result=result_template
 			rl=[]
 			if cursor.count():
@@ -31,7 +31,7 @@ class ment2ent():
 class triples():
 	def __init__(self,ent):
 		self.ent=ent
-	def search():
+	def search(self):
 		if(self.ent==''):
 			return None
 		else:
