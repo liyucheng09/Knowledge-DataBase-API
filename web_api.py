@@ -21,9 +21,9 @@ def ment2ent_api():
 		return json.dumps({'status':'Error','return':[]},ensure_ascii=False)
 
 @app.route('/triples')
-def triples_api(ent):
+def triples_api():
 	ent=request.args.get('q')
-	triples_cursor=tripls(ent)
+	triples_cursor=triples(ent)
 	r=triples_cursor.search()
 	if r:
 		return json.dumps(r,ensure_ascii=False)
