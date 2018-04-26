@@ -1,9 +1,10 @@
 import json
-from flask import Flask,request
+from flask import Flask,request,jsonify
 from flask_script import Manager
 from db import *
 
 app=Flask(__name__)
+app.config['JSON_AS_ASCII']=False
 manager=Manager(app)
 
 @app.route('/')
@@ -16,9 +17,9 @@ def ment2ent_api():
 	ment_cursor=ment2ent(ment)
 	r=ment_cursor.search()
 	if r:
-		return json.dumps(r,ensure_ascii=False)
+		return jsonify(r)
 	else:
-		return json.dumps({'status':'Error','return':[]},ensure_ascii=False)
+		return jsonify({'status':'Error','return':[]})
 
 @app.route('/triples')
 def triples_api():
@@ -26,9 +27,9 @@ def triples_api():
 	triples_cursor=triples(ent)
 	r=triples_cursor.search()
 	if r:
-		return json.dumps(r,ensure_ascii=False)
+		return jsonify(r)
 	else:
-		return json.dumps({'status':'Error','return':[]},ensure_ascii=False)
+		return jsonify({'status':'Error','return':[]})
 
 if __name__=='__main__':
 	manager.run()
